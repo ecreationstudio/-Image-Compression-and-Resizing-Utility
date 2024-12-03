@@ -1,5 +1,23 @@
-// Importieren Sie die Funktion "compressAndResizeImages" aus einer separaten Datei
+const { program } = require('commander');
 const { compressAndResizeImages } = require('./compress.js');
 
-// Rufen Sie die Funktion mit den erforderlichen Argumenten auf
-compressAndResizeImages('src', 'dst', 1920, 1080, 60);
+program
+  .option('-s, --source <sourceDir>', 'Source directory', 'src')
+  .option('-d, --dest <destDir>', 'Destination directory', 'dst')
+  .option('-w, --width <maxWidth>', 'Max width', 1920)
+  .option('-h, --height <maxHeight>', 'Max height', 1080)
+  .option('-q, --quality <quality>', 'Quality (1-100)', 60)
+  .option('-f, --format <format>', 'Output format (e.g., jpg, png, webp)', 'jpg');
+
+program.parse(process.argv);
+
+const options = program.opts();
+compressAndResizeImages(
+  options.source,
+  options.dest,
+  parseInt(options.width),
+  parseInt(options.height),
+  parseInt(options.quality),
+  options.format,
+  false // auf true setzen um zu cropen
+);

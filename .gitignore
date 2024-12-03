@@ -4,3 +4,5 @@ src/*
 
 dst/*
 !dst/.gitkeep
+
+README_german.md
