@@ -1,0 +1,6 @@
+# Ausschließen aller Inhalte in src und dst, aber Ordner beibehalten
+src/*
+!src/.gitkeep
+
+dst/*
+!dst/.gitkeep
