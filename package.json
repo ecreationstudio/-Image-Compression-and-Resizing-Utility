@@ -1,0 +1,12 @@
+{
+  "name": "# Image Compression and Resizing Utility - by ecreation.",
+  "version": "1.1.3",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "devDependencies": {
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "sharp": "^0.33.4"
+  }
+}
