@@ -5,7 +5,7 @@ program
   .option('-s, --source <sourceDir>', 'Source directory', 'src')
   .option('-d, --dest <destDir>', 'Destination directory', 'dst')
   .option('-w, --width <maxWidth>', 'Max width', 1920)
-  .option('-h, --height <maxHeight>', 'Max height', 1080)
+  .option('-h, --height <maxHeight>', 'Max height', 1920)
   .option('-q, --quality <quality>', 'Quality (1-100)', 60)
   .option('-f, --format <format>', 'Output format (e.g., jpg, png, webp)', 'jpg');
 
