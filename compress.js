@@ -5,7 +5,7 @@ const cliProgress = require('cli-progress');
 const heicConvert = require('heic-convert');
 
 // Unterstützte Formate
-const supportedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic'];
+const supportedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.heic', '.tif', '.tiff']; // TIF/TIFF hinzugefügt
 const supportedOutputFormats = ['jpeg', 'png', 'webp'];
 
 async function compressAndResizeImages(sourceDir = './src', destDir = './dst', maxWidth = 1920, maxHeight = 1080, quality = 80, outputFormat = 'jpg', allowCrop = false, concurrency = 5) {
@@ -76,6 +76,8 @@ async function compressAndResizeImages(sourceDir = './src', destDir = './dst', m
                     if (fileExtension === '.heic') {
                         tempFilePath = await convertHeicToJpeg(file);
                         await processStandardImage(tempFilePath, destPath, maxWidth, maxHeight, quality, outputFormat, allowCrop);
+                    } else if (fileExtension === '.tif' || fileExtension === '.tiff') {
+                        await processStandardImage(file, destPath, maxWidth, maxHeight, quality, outputFormat, allowCrop);
                     } else {
                         await processStandardImage(file, destPath, maxWidth, maxHeight, quality, outputFormat, allowCrop);
                     }
@@ -84,7 +86,6 @@ async function compressAndResizeImages(sourceDir = './src', destDir = './dst', m
                 } catch (err) {
                     console.error(`Fehler bei Datei ${file}:`, err);
                 } finally {
-                    // Temporäre Datei löschen
                     if (tempFilePath && fs.existsSync(tempFilePath)) {
                         fs.unlinkSync(tempFilePath);
                         console.log(`Temporäre Datei ${tempFilePath} gelöscht.`);
@@ -97,6 +98,7 @@ async function compressAndResizeImages(sourceDir = './src', destDir = './dst', m
     progressBar.stop();
     console.log('Alle Dateien erfolgreich verarbeitet!');
 }
+
 async function convertHeicToJpeg(sourcePath) {
     try {
         const inputBuffer = fs.readFileSync(sourcePath);
